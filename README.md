@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🧠 Mind Palace - Interactive Neural Network Portfolio
 
-## Getting Started
+A high-end, interactive portfolio website featuring a reactive neural network background, dynamic theme switching, and automatic data synchronization.
 
-First, run the development server:
+## 🚀 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Reactive Neural Network**: A D3.js powered background that responds to your navigation.
+- **Dynamic Themes**: Switch between Neural Blue, Matrix Green, and Cyber Purple.
+- **Auto GitHub Sync**: Automatically displays projects tagged with `portfolio-showcase`.
+- **LinkedIn Integration**: Parses your LinkedIn data for Experience and Education views.
+- **Premium UI**: Smooth animations using Framer Motion and a custom cyber-themed scrollbar.
+- **Contact System**: Integrated contact form powered by Resend.
+
+---
+
+## 🛠️ How to Update Your Data
+
+Updating your portfolio is designed to be simple. Most configurations are centralized in `src/config/portfolio.config.ts`.
+
+### 1. Update Your Resume
+You have two ways to update your resume link:
+- **Option A (Recommended)**: Add `NEXT_PUBLIC_RESUME_LINK=your_link_here` to your `.env.local` file.
+- **Option B**: Update the `googleDriveLink` in `src/config/portfolio.config.ts`.
+
+### 2. Update Experience & Education (LinkedIn)
+1. Go to your LinkedIn **Settings & Privacy** > **Data Privacy** > **Get a copy of your data**.
+2. Download the **CSV** format.
+3. Extract and find `Positions.csv` (for Experience) and `Education.csv` (for Education).
+4. Place these files in the `public/data/` folder.
+5. The website will automatically parse and display the new data.
+
+### 3. Sync New Projects (GitHub)
+1. Go to your GitHub repository settings.
+2. Add the topic `portfolio-showcase`.
+3. The portfolio will automatically fetch it (cached for 1 hour).
+4. To force an immediate refresh, visit `/api/github-sync?refresh=true`.
+
+### 4. Personal Details & Skills
+All other details (About Me, Skills list, Certifications, Interests) are located in:
+`src/config/portfolio.config.ts`
+
+---
+
+## ⚙️ Setup & Deployment
+
+### Prerequisites
+- Node.js 18+
+- A GitHub account
+- A Resend account (for the contact form)
+
+### Environment Variables (`.env.local`)
+Create a `.env.local` file in the root directory with the following:
+```env
+GITHUB_TOKEN=your_github_personal_access_token
+RESEND_API_KEY=your_resend_api_key
+CONTACT_FORM_TO_EMAIL=your_email@example.com
+NEXT_PUBLIC_RESUME_LINK=your_resume_google_drive_link
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Local Development
+```bash
+npm install
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Deployment (Vercel)
+1. Push your code to a GitHub repository.
+2. Connect the repository to [Vercel](https://vercel.com).
+3. Add the environment variables listed above in the Vercel dashboard.
+4. Deploy!
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📂 Project Structure
+- `src/app`: Next.js App Router and API routes.
+- `src/components`: Reusable UI components and content views.
+- `src/config`: Centralized configuration file.
+- `src/context`: Theme management.
+- `public/data`: Storage for LinkedIn CSV files.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Developed with 💚 for a professional digital identity.**
