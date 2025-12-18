@@ -4,12 +4,15 @@ A high-end, interactive portfolio website featuring a reactive neural network ba
 
 ## 🚀 Features
 
-- **Reactive Neural Network**: A D3.js powered background that responds to your navigation.
+- **Reactive Neural Network**: A D3.js powered background that responds to your navigation and screen size.
+- **Full Responsiveness**: Optimized for a seamless experience across mobile, tablet, and desktop devices.
 - **Dynamic Themes**: Switch between Neural Blue, Matrix Green, and Cyber Purple.
 - **Auto GitHub Sync**: Automatically displays projects tagged with `portfolio-showcase`.
 - **LinkedIn Integration**: Parses your LinkedIn data for Experience and Education views.
+- **Smart Experience Display**: Gracefully handles "Newly Graduate" states with a professional message when no experience data is present.
 - **Premium UI**: Smooth animations using Framer Motion and a custom cyber-themed scrollbar.
 - **Contact System**: Integrated contact form powered by Resend.
+- **SEO Optimized**: Built with modern SEO best practices for better visibility.
 
 ---
 
@@ -28,6 +31,8 @@ You have two ways to update your resume link:
 3. Extract and find `Positions.csv` (for Experience) and `Education.csv` (for Education).
 4. Place these files in the `public/data/` folder.
 5. The website will automatically parse and display the new data.
+   - **Note**: If no `Positions.csv` is found or it's empty, the site will professionally display a "Newly Graduate / Early Career" message.
+   - **Note**: If no `Education.csv` is found, it will fall back to the data defined in `portfolio.config.ts`.
 
 ### 3. Sync New Projects (GitHub)
 1. Go to your GitHub repository settings.
