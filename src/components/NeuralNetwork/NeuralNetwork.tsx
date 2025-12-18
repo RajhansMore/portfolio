@@ -60,20 +60,24 @@ export const NeuralNetwork: React.FC<NeuralNetworkProps> = ({
     // Setup dimensions
     const actualWidth = width;
     const actualHeight = height;
+    const isMobile = actualWidth < 768;
 
     // Clear previous content
     d3.select(svgRef.current).selectAll('*').remove();
 
-    // Create nodes array
+    // Create nodes array with responsive radii
     const nodes: Node[] = expandMode
-      ? [CENTER_NODE, ...TIER1_NODES]
-      : [CENTER_NODE];
+      ? [
+        { ...CENTER_NODE, radius: isMobile ? 30 : 40 },
+        ...TIER1_NODES.map(n => ({ ...n, radius: isMobile ? 45 : 60 }))
+      ]
+      : [{ ...CENTER_NODE, radius: isMobile ? 30 : 40 }];
 
     // Create links
     const links: Link[] = expandMode
       ? TIER1_NODES.map(node => ({
-        source: CENTER_NODE,
-        target: node,
+        source: CENTER_NODE.id,
+        target: node.id,
         strength: 0.5,
       }))
       : [];
@@ -100,12 +104,12 @@ export const NeuralNetwork: React.FC<NeuralNetworkProps> = ({
         d3
           .forceLink<Node, Link>(links)
           .id(d => d.id)
-          .distance(200)
+          .distance(isMobile ? 120 : 200)
           .strength(d => d.strength)
       )
-      .force('charge', d3.forceManyBody().strength(-2000))
+      .force('charge', d3.forceManyBody().strength(isMobile ? -1000 : -2000))
       .force('center', d3.forceCenter(actualWidth / 2, actualHeight / 2))
-      .force('collision', d3.forceCollide<Node>().radius(d => d.radius + 20));
+      .force('collision', d3.forceCollide<Node>().radius(d => d.radius + (isMobile ? 10 : 20)));
 
     simulationRef.current = simulation;
 

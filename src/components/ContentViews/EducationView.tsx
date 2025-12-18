@@ -57,10 +57,10 @@ export const EducationView: React.FC<EducationViewProps> = ({ onClose }) => {
   }, []);
 
   return (
-    <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-950 to-black rounded-lg p-8 overflow-y-auto">
+    <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-950 to-black rounded-lg p-4 md:p-8 overflow-y-auto">
       {/* Header */}
-      <FadeIn direction="down" className="mb-8">
-        <h2 className="text-4xl font-bold text-white mb-2">
+      <FadeIn direction="down" className="mb-6 md:mb-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-2">
           Education
         </h2>
         <p className="text-gray-400">

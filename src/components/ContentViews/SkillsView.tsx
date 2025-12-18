@@ -57,10 +57,10 @@ export const SkillsView: React.FC<SkillsViewProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-950 to-black rounded-lg p-8 overflow-y-auto">
+    <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-950 to-black rounded-lg p-4 md:p-8 overflow-y-auto">
       {/* Header */}
-      <FadeIn direction="down" className="mb-8">
-        <h2 className="text-4xl font-bold text-white mb-4">
+      <FadeIn direction="down" className="mb-6 md:mb-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
           Technical Skills
         </h2>
 

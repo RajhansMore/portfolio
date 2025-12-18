@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { EntryAnimation } from '@/components/EntryAnimation/EntryAnimation';
 import { NeuralNetwork } from '@/components/NeuralNetwork/NeuralNetwork';
@@ -35,6 +35,23 @@ export default function Home() {
   const [currentView, setCurrentView] = useState<ViewType>('entry');
   const [isContactOpen, setIsContactOpen] = useState(false);
   const [networkExpanded, setNetworkExpanded] = useState(false);
+  const [dimensions, setDimensions] = useState({ width: 1200, height: 800 });
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      if (containerRef.current) {
+        setDimensions({
+          width: containerRef.current.offsetWidth,
+          height: containerRef.current.offsetHeight,
+        });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
 
   const handleEntryComplete = () => {
     setCurrentView('network');
@@ -85,8 +102,8 @@ export default function Home() {
         return (
           <NeuralNetwork
             onNodeClick={handleNodeClick}
-            width={1200}
-            height={800}
+            width={dimensions.width}
+            height={dimensions.height}
             expandMode={networkExpanded}
           />
         );
@@ -94,13 +111,16 @@ export default function Home() {
   };
 
   return (
-    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 to-black overflow-hidden relative">
+    <div className="w-screen h-[100dvh] bg-gradient-to-br from-slate-950 to-black overflow-hidden relative">
       <Background3D
         visible={currentView === 'network' || isContactOpen}
         opacity={isContactOpen ? 0.3 : 1}
       />
 
-      <div className={`w-full h-full p-6 relative z-10 transition-opacity duration-500 ${isContactOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+      <div
+        ref={containerRef}
+        className={`w-full h-full p-4 md:p-8 relative z-10 transition-opacity duration-500 ${isContactOpen ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={currentView}

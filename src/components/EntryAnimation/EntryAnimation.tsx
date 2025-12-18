@@ -70,12 +70,12 @@ export const EntryAnimation: React.FC<EntryAnimationProps> = ({ onComplete }) =>
   return (
     <div className="fixed inset-0 z-50 bg-gradient-to-br from-slate-950 to-black flex items-center justify-center">
       {stage === 'name' && (
-        <div className="text-center">
+        <div className="text-center px-4">
           <motion.h1
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="text-6xl md:text-8xl font-bold text-white tracking-tighter"
+            className="text-4xl sm:text-6xl md:text-8xl font-bold text-white tracking-tighter"
           >
             {portfolioConfig.personal?.fullName}
           </motion.h1>
@@ -89,7 +89,7 @@ export const EntryAnimation: React.FC<EntryAnimationProps> = ({ onComplete }) =>
       )}
 
       {stage === 'about' && (
-        <div className="max-w-5xl px-8 text-center">
+        <div className="max-w-5xl px-6 md:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -100,16 +100,16 @@ export const EntryAnimation: React.FC<EntryAnimationProps> = ({ onComplete }) =>
               initial={{ scale: 0, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-blue-500/50 p-1 mb-8 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm"
+              className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full border-2 border-blue-500/50 p-1 mb-6 md:mb-8 flex items-center justify-center bg-slate-900/50 backdrop-blur-sm"
             >
-              <span className="text-6xl md:text-7xl font-bold text-white tracking-tighter">
+              <span className="text-5xl sm:text-6xl md:text-7xl font-bold text-white tracking-tighter">
                 {portfolioConfig.personal.fullName.charAt(0)}
               </span>
             </motion.div>
-            <h2 className="text-4xl font-bold text-white mb-6 tracking-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6 tracking-tight">
               {portfolioConfig.personal?.fullName}
             </h2>
-            <p className="text-xl text-gray-300 leading-relaxed text-justify font-light">
+            <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed text-justify font-light">
               {portfolioConfig.personal?.aboutMe}
             </p>
 

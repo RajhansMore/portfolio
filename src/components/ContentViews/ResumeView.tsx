@@ -19,13 +19,13 @@ export const ResumeView: React.FC<ResumeViewProps> = ({ onClose }) => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Header */}
-      <div className="flex-shrink-0 p-8 md:p-12 border-b border-slate-800/50 relative z-10">
+      <div className="flex-shrink-0 p-6 md:p-12 border-b border-slate-800/50 relative z-10">
         <div className="flex items-center justify-between max-w-5xl mx-auto w-full">
           <FadeIn direction="down">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-2 tracking-tight">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold text-white mb-1 md:mb-2 tracking-tight">
               Curriculum <span className="text-blue-400">Vitae</span>
             </h2>
-            <p className="text-gray-400 font-light">Professional background and technical expertise</p>
+            <p className="text-xs md:text-base text-gray-400 font-light">Professional background and technical expertise</p>
           </FadeIn>
           {onClose && (
             <motion.button
@@ -34,7 +34,7 @@ export const ResumeView: React.FC<ResumeViewProps> = ({ onClose }) => {
               onClick={onClose}
               className="text-gray-500 hover:text-white transition-colors p-2 bg-slate-900/50 rounded-full border border-slate-800"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </motion.button>
@@ -43,9 +43,9 @@ export const ResumeView: React.FC<ResumeViewProps> = ({ onClose }) => {
       </div>
 
       {/* Content Area */}
-      <div className="flex-1 overflow-y-auto p-8 md:p-12 relative z-10">
+      <div className="flex-1 overflow-y-auto p-4 md:p-12 relative z-10">
         <div className="max-w-5xl mx-auto w-full flex flex-col items-center justify-center min-h-full">
-          <StaggerContainer className="w-full max-w-2xl bg-slate-900/40 backdrop-blur-md rounded-2xl p-12 border border-slate-800 text-center shadow-2xl relative overflow-hidden group">
+          <StaggerContainer className="w-full max-w-2xl bg-slate-900/40 backdrop-blur-md rounded-2xl p-6 md:p-12 border border-slate-800 text-center shadow-2xl relative overflow-hidden group">
             {/* Animated border glow */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/5 to-blue-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
 

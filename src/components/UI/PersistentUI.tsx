@@ -13,14 +13,14 @@ export const PersistentUI: React.FC<PersistentUIProps> = ({ onContactClick, onBa
   return (
     <>
       {/* Top-left name anchor */}
-      <div className="fixed top-6 left-6 z-40 group">
+      <div className="fixed top-4 left-4 md:top-6 md:left-6 z-40 group">
         <motion.button
           onClick={onAboutClick}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="relative text-xl md:text-2xl font-bold text-white transition-all duration-300 flex items-center gap-2"
+          className="relative text-lg md:text-2xl font-bold text-white transition-all duration-300 flex items-center gap-2"
         >
-          <div className="relative w-10 h-10 bg-slate-900/80 backdrop-blur-sm border border-slate-500 group-hover:border-blue-500 rounded-lg flex items-center justify-center text-gray-300 group-hover:text-blue-400 font-bold text-sm transition-all duration-300 shadow-lg shadow-black/50 overflow-hidden">
+          <div className="relative w-8 h-8 md:w-10 md:h-10 bg-slate-900/80 backdrop-blur-sm border border-slate-500 group-hover:border-blue-500 rounded-lg flex items-center justify-center text-gray-300 group-hover:text-blue-400 font-bold text-xs md:text-sm transition-all duration-300 shadow-lg shadow-black/50 overflow-hidden">
             {/* Subtle inner glow on hover */}
             <div className="absolute inset-0 bg-blue-500/0 group-hover:bg-blue-500/10 transition-colors duration-300" />
             <span className="relative z-10">{portfolioConfig.personal?.fullName?.charAt(0) || 'R'}</span>
@@ -32,18 +32,18 @@ export const PersistentUI: React.FC<PersistentUIProps> = ({ onContactClick, onBa
       </div>
 
       {/* Top-right social & contact */}
-      <div className="fixed top-6 right-6 z-40 flex items-center gap-4">
+      <div className="fixed top-4 right-4 md:top-6 md:right-6 z-40 flex items-center gap-2 md:gap-4">
         {/* LinkedIn Icon */}
         {portfolioConfig.social?.linkedinUrl && (
           <a
             href={portfolioConfig.social?.linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-900/80 backdrop-blur-sm border border-slate-600 hover:border-blue-500 transition-all duration-300 text-gray-400 hover:text-white hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] group"
+            className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-lg bg-slate-900/80 backdrop-blur-sm border border-slate-600 hover:border-blue-500 transition-all duration-300 text-gray-400 hover:text-white hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(59,130,246,0.4)] group"
             title="LinkedIn Profile"
           >
             <svg
-              className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
+              className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform duration-300"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -58,11 +58,11 @@ export const PersistentUI: React.FC<PersistentUIProps> = ({ onContactClick, onBa
             href={portfolioConfig.social?.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-10 h-10 flex items-center justify-center rounded-lg bg-slate-900/80 backdrop-blur-sm border border-slate-600 hover:border-purple-500 transition-all duration-300 text-gray-400 hover:text-white hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] group"
+            className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-lg bg-slate-900/80 backdrop-blur-sm border border-slate-600 hover:border-purple-500 transition-all duration-300 text-gray-400 hover:text-white hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(168,85,247,0.4)] group"
             title="GitHub Profile"
           >
             <svg
-              className="w-5 h-5 group-hover:scale-110 transition-transform duration-300"
+              className="w-4 h-4 md:w-5 md:h-5 group-hover:scale-110 transition-transform duration-300"
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -74,23 +74,23 @@ export const PersistentUI: React.FC<PersistentUIProps> = ({ onContactClick, onBa
         {/* Contact Button */}
         <button
           onClick={onContactClick}
-          className="px-5 py-2 bg-slate-900/80 backdrop-blur-sm border border-slate-500 hover:border-purple-500 text-gray-300 hover:text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] text-sm tracking-wide"
+          className="px-3 py-1.5 md:px-5 md:py-2 bg-slate-900/80 backdrop-blur-sm border border-slate-500 hover:border-purple-500 text-gray-300 hover:text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-[0_0_20px_rgba(168,85,247,0.4)] text-xs md:text-sm tracking-wide"
         >
           Contact
         </button>
       </div>
 
       {/* Bottom-right scroll indicator + back button */}
-      <div className="fixed bottom-6 right-6 z-40 flex flex-col items-center gap-4">
+      <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-40 flex flex-col items-center gap-4">
         {/* Back Button */}
         {onBackClick && (
           <button
             onClick={onBackClick}
-            className="w-12 h-12 flex items-center justify-center rounded-full bg-slate-800/80 backdrop-blur-sm hover:bg-slate-700 border border-slate-700 hover:border-slate-500 text-gray-400 hover:text-white transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-110 active:scale-90 group"
+            className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-slate-800/80 backdrop-blur-sm hover:bg-slate-700 border border-slate-700 hover:border-slate-500 text-gray-400 hover:text-white transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] hover:scale-110 active:scale-90 group"
             title="Go back"
           >
             <svg
-              className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300"
+              className="w-4 h-4 md:w-5 md:h-5 group-hover:rotate-90 transition-transform duration-300"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

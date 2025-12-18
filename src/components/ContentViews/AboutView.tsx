@@ -31,13 +31,13 @@ export const AboutView: React.FC<AboutViewProps> = ({ onClose }) => {
 
     return (
         <div
-            className="w-full h-full flex flex-col items-center justify-center bg-black/90 backdrop-blur-xl rounded-lg p-8 cursor-pointer overflow-hidden relative"
+            className="w-full h-full flex flex-col items-center justify-center bg-black/90 backdrop-blur-xl rounded-lg p-4 md:p-8 cursor-pointer overflow-hidden relative"
             onClick={onClose}
             onMouseMove={handleMouseMove}
         >
             {/* Subtle background glow */}
             <motion.div
-                className="absolute w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none"
+                className="absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-blue-500/10 rounded-full blur-[80px] md:blur-[120px] pointer-events-none"
                 style={{
                     x: useSpring(mouseX, springConfig),
                     y: useSpring(mouseY, springConfig),
@@ -50,25 +50,25 @@ export const AboutView: React.FC<AboutViewProps> = ({ onClose }) => {
                 className="max-w-3xl text-center relative z-10"
                 style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
             >
-                <FadeIn direction="down" className="mb-6 flex flex-col items-center">
+                <FadeIn direction="down" className="mb-4 md:mb-6 flex flex-col items-center">
                     <motion.div
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
-                        className="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-blue-500/50 p-1 mb-6 relative group flex items-center justify-center bg-slate-900/50 backdrop-blur-sm"
+                        className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full border-2 border-blue-500/50 p-1 mb-4 md:mb-6 relative group flex items-center justify-center bg-slate-900/50 backdrop-blur-sm"
                     >
                         <div className="absolute inset-0 rounded-full bg-blue-500/10 blur-lg group-hover:bg-blue-500/30 transition-colors duration-500" />
-                        <span className="text-6xl md:text-7xl font-bold text-white relative z-10 tracking-tighter group-hover:text-blue-400 transition-colors duration-500">
+                        <span className="text-5xl sm:text-6xl md:text-7xl font-bold text-white relative z-10 tracking-tighter group-hover:text-blue-400 transition-colors duration-500">
                             {portfolioConfig.personal.fullName.charAt(0)}
                         </span>
                     </motion.div>
-                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-4 tracking-tight">
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-2 md:mb-4 tracking-tight">
                         About <span className="text-blue-400">Me</span>
                     </h2>
-                    <div className="h-1 w-20 bg-blue-500/50 mx-auto rounded-full" />
+                    <div className="h-1 w-16 md:w-20 bg-blue-500/50 mx-auto rounded-full" />
                 </FadeIn>
 
-                <div className="text-xl md:text-2xl text-gray-300 leading-relaxed font-light">
+                <div className="text-base sm:text-xl md:text-2xl text-gray-300 leading-relaxed font-light">
                     <Typewriter
                         text={portfolioConfig.personal.aboutMe}
                         speed={0.02}
