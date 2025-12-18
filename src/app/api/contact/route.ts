@@ -210,7 +210,6 @@ export async function POST(request: NextRequest) {
 
     // Check if Resend API key is configured
     if (!process.env.RESEND_API_KEY) {
-      console.error('[Contact] RESEND_API_KEY not configured');
       return NextResponse.json(
         {
           success: false,
@@ -223,7 +222,7 @@ export async function POST(request: NextRequest) {
 
     // Send email via Resend
     const emailResponse = await resend.emails.send({
-      from: 'Contact Form <onboarding@resend.dev>', // Resend sandbox email
+      from: 'Contact Form <onboarding@resend.dev>',
       to: TO_EMAIL,
       replyTo: contactData.email,
       subject: `New Contact Form: Message from ${contactData.name}`,
@@ -232,7 +231,6 @@ export async function POST(request: NextRequest) {
     });
 
     if (emailResponse.error) {
-      console.error('[Contact] Resend error:', emailResponse.error);
       return NextResponse.json(
         {
           success: false,
@@ -242,8 +240,6 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       );
     }
-
-    console.log(`[Contact] Email sent successfully to ${TO_EMAIL}`);
 
     // Send confirmation email to user
     try {
@@ -258,8 +254,7 @@ export async function POST(request: NextRequest) {
         `,
       });
     } catch (confirmError) {
-      // Don't fail if confirmation email fails
-      console.warn('[Contact] Failed to send confirmation email:', confirmError);
+      // Ignore confirmation email failures
     }
 
     return NextResponse.json(
@@ -271,19 +266,6 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('[Contact] Unexpected error:', error);
-
-    if (error instanceof SyntaxError) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Invalid JSON',
-          message: 'Request body must be valid JSON',
-        },
-        { status: 400 }
-      );
-    }
-
     return NextResponse.json(
       {
         success: false,

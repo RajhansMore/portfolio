@@ -36,9 +36,6 @@ async function fetchGitHubProjects(): Promise<SyncedProject[]> {
   const githubToken = process.env.GITHUB_TOKEN;
 
   if (!githubToken) {
-    console.warn(
-      '[GitHub Sync] No GITHUB_TOKEN found. Add it to .env.local to enable GitHub sync.'
-    );
     return [];
   }
 
@@ -88,12 +85,10 @@ async function fetchGitHubProjects(): Promise<SyncedProject[]> {
     const json = await response.json();
 
     if (json.errors) {
-      console.error('[GitHub Sync] GraphQL Error:', json.errors);
       return [];
     }
 
     if (!json.data?.viewer?.repositories?.nodes) {
-      console.warn('[GitHub Sync] No repositories found');
       return [];
     }
 
@@ -118,15 +113,8 @@ async function fetchGitHubProjects(): Promise<SyncedProject[]> {
         updatedAt: repo.updatedAt,
       }));
 
-    console.log(
-      `[GitHub Sync] Synced projects: ${syncedProjects.map(p => p.name).join(', ')}`
-    );
-    console.log(
-      `[GitHub Sync] Successfully synced ${syncedProjects.length} projects from GitHub`
-    );
     return syncedProjects;
   } catch (error) {
-    console.error('[GitHub Sync] Error fetching from GitHub:', error);
     return [];
   }
 }
@@ -143,7 +131,6 @@ export async function GET(request: NextRequest) {
     // Check cache
     const now = Date.now();
     if (!refresh && projectCache && now - projectCache.timestamp < CACHE_DURATION) {
-      console.log('[GitHub Sync] Returning cached projects');
       return NextResponse.json(
         {
           success: true,
@@ -156,7 +143,6 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch fresh data
-    console.log('[GitHub Sync] Fetching fresh projects from GitHub');
     const projects = await fetchGitHubProjects();
 
     // Update cache
@@ -176,7 +162,6 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('[GitHub Sync] Unexpected error:', error);
     return NextResponse.json(
       {
         success: false,
@@ -214,7 +199,6 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('[GitHub Sync] Error during forced refresh:', error);
     return NextResponse.json(
       {
         success: false,

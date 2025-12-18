@@ -35,26 +35,13 @@ export interface LinkedInData {
 function getCSVFileAge(): number {
   try {
     const csvPath = join(process.cwd(), 'public', 'data', 'linkedin.csv');
-    const stats = readFileSync(csvPath);
-
-    // For simplicity, return 0 as we can't easily get file stats in Next.js
-    // In a real app, you'd use fs.statSync
+    readFileSync(csvPath);
     return 0;
   } catch {
     return -1; // File not found
   }
 }
 
-/**
- * Parse LinkedIn CSV export
- * Expected CSV format (from LinkedIn data export):
- * - Column 1: Position/Title
- * - Column 2: Company Name
- * - Column 3: Start Date
- * - Column 4: End Date
- * - Column 5: Description
- * - Column 6: Location
- */
 /**
  * Parse LinkedIn CSV export
  * Supports multiple files: Positions.csv, Education.csv, Profile.csv, or a combined linkedin.csv
@@ -131,10 +118,6 @@ async function parseLinkedInCSV(): Promise<LinkedInData> {
 
     const isStale = false; // Default to false for now
 
-    console.log(
-      `[LinkedIn Sync] Parsed ${experiences.length} experiences and ${education.length} educations from ${filesFound} files`
-    );
-
     return {
       experiences: experiences.filter((e) => e.title && e.company),
       education: education.filter((e) => e.school),
@@ -143,7 +126,6 @@ async function parseLinkedInCSV(): Promise<LinkedInData> {
       isStale,
     };
   } catch (error) {
-    console.error('[LinkedIn Sync] Error parsing CSVs:', error);
     throw error;
   }
 }
@@ -164,8 +146,6 @@ export async function GET(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('[LinkedIn Sync] Error:', error);
-
     // If CSV not found, return empty data with helpful message
     if (error instanceof Error && error.message.includes('ENOENT')) {
       return NextResponse.json(
@@ -266,7 +246,6 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error('[LinkedIn Parse] Error:', error);
     return NextResponse.json(
       {
         success: false,
