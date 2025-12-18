@@ -39,6 +39,11 @@ You have two ways to update your resume link:
 All other details (About Me, Skills list, Certifications, Interests) are located in:
 `src/config/portfolio.config.ts`
 
+### 5. Periodic Reminders
+The website is configured to send you an email on the 1st of every month to remind you to update your LinkedIn data.
+- This uses **Vercel Cron Jobs**.
+- You must add a `CRON_SECRET` to your Vercel environment variables to secure this endpoint. You can generate any random string for this.
+
 ---
 
 ## ⚙️ Setup & Deployment
@@ -55,6 +60,7 @@ GITHUB_TOKEN=your_github_personal_access_token
 RESEND_API_KEY=your_resend_api_key
 CONTACT_FORM_TO_EMAIL=your_email@example.com
 NEXT_PUBLIC_RESUME_LINK=your_resume_google_drive_link
+CRON_SECRET=your_random_secret_string
 ```
 
 ### Local Development
