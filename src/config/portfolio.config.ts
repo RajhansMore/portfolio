@@ -37,9 +37,20 @@ export interface EducationItem {
   degree: string;
   field: string;
   graduationYear: string;
+  startDate?: string;
+  endDate?: string;
   gpa?: string;
   description?: string;
   achievements?: string[];
+}
+
+export interface ExperienceItem {
+  title: string;
+  company: string;
+  location: string;
+  startDate: string;
+  endDate: string;
+  description: string;
 }
 
 export const portfolioConfig = {
@@ -222,6 +233,28 @@ export const portfolioConfig = {
   ] as InterestItem[],
 
   // ============================================
+  // EXPERIENCE
+  // ============================================
+  experience: [
+    {
+      title: 'Full Stack Developer Intern',
+      company: 'Tech Solutions Inc.',
+      location: 'Remote',
+      startDate: '2023-06',
+      endDate: '2023-08',
+      description: 'Developed and maintained web applications using React and Node.js. Optimized database queries and improved frontend performance by 20%.',
+    },
+    {
+      title: 'AI/ML Research Assistant',
+      company: 'Symbiosis Institute of Technology',
+      location: 'Pune, India',
+      startDate: '2022-09',
+      endDate: '2023-05',
+      description: 'Assisted in research on Neural Networks and Computer Vision. Implemented CNN models for image classification tasks.',
+    },
+  ] as ExperienceItem[],
+
+  // ============================================
   // EDUCATION
   // ============================================
   education: [
@@ -230,6 +263,8 @@ export const portfolioConfig = {
       degree: 'Bachelor of Technology',
       field: 'Computer Science & Engineering',
       graduationYear: '2024',
+      startDate: '2020',
+      endDate: '2024',
       gpa: '3.8/4.0',
       description: 'Focused on Full-Stack Development and AI/ML applications.',
       achievements: [

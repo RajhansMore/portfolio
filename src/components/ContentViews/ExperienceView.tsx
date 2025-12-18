@@ -5,49 +5,16 @@
 
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/UI/Animations';
-
-interface Experience {
-  title: string;
-  company: string;
-  startDate: string;
-  endDate: string;
-  description: string;
-  location?: string;
-}
+import { portfolioConfig } from '@/config/portfolio.config';
 
 interface ExperienceViewProps {
   onClose?: () => void;
 }
 
 export const ExperienceView: React.FC<ExperienceViewProps> = ({ onClose }) => {
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchExperience = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('/api/linkedin-parse');
-        const data = await response.json();
-
-        if (data.success && data.data?.experiences) {
-          setExperiences(data.data.experiences);
-        } else {
-          setError('Failed to fetch experience data');
-        }
-      } catch (err) {
-        setError('Error fetching experience data');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchExperience();
-  }, []);
+  const experiences = portfolioConfig.experience || [];
 
   return (
     <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-950 to-black rounded-lg p-8 overflow-y-auto">
@@ -57,30 +24,8 @@ export const ExperienceView: React.FC<ExperienceViewProps> = ({ onClose }) => {
         <p className="text-gray-400">Professional work history</p>
       </FadeIn>
 
-      {/* Loading State */}
-      {loading && (
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
-            <p className="text-gray-400">Loading experience data...</p>
-          </div>
-        </div>
-      )}
-
-      {/* Error State */}
-      {error && (
-        <FadeIn className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-red-400 mb-4">{error}</p>
-            <p className="text-gray-500 text-sm">
-              Place your LinkedIn CSV export in public/data/linkedin.csv
-            </p>
-          </div>
-        </FadeIn>
-      )}
-
       {/* Timeline */}
-      {!loading && !error && experiences.length > 0 && (
+      {experiences.length > 0 ? (
         <StaggerContainer className="space-y-8">
           {experiences.map((exp, index) => (
             <StaggerItem key={index} className="relative pl-8 pb-8">
@@ -113,9 +58,7 @@ export const ExperienceView: React.FC<ExperienceViewProps> = ({ onClose }) => {
             </StaggerItem>
           ))}
         </StaggerContainer>
-      )}
-
-      {!loading && !error && experiences.length === 0 && (
+      ) : (
         <FadeIn className="flex-1 flex flex-col items-center justify-center text-center p-8">
           <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
             <span className="text-3xl">🚀</span>
@@ -126,9 +69,6 @@ export const ExperienceView: React.FC<ExperienceViewProps> = ({ onClose }) => {
           </p>
         </FadeIn>
       )}
-
-      {/* Close Button */}
-      {/* Back button now in PersistentUI */}
     </div>
   );
 };

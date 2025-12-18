@@ -5,56 +5,16 @@
 
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/UI/Animations';
-
-interface Education {
-  school: string;
-  degree: string;
-  field: string;
-  startDate: string;
-  endDate: string;
-}
+import { portfolioConfig } from '@/config/portfolio.config';
 
 interface EducationViewProps {
   onClose?: () => void;
 }
 
 export const EducationView: React.FC<EducationViewProps> = ({ onClose }) => {
-  const [educationList, setEducationList] = useState<Education[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const fetchEducation = async () => {
-      try {
-        setLoading(true);
-        const response = await fetch('/api/linkedin-parse');
-        const data = await response.json();
-
-        if (data.success && data.data?.education) {
-          setEducationList(data.data.education);
-        } else {
-          // If API fails, fall back to empty list (or handle error)
-          // But since we want to support empty state, we just set empty
-          if (data.data?.education) {
-            setEducationList(data.data.education);
-          } else {
-            // If completely failed, maybe show error?
-            // For now, let's assume if success is false, it's an error
-            if (!data.success) setError('Failed to fetch education data');
-          }
-        }
-      } catch (err) {
-        setError('Error fetching education data');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchEducation();
-  }, []);
+  const educationList = portfolioConfig.education || [];
 
   return (
     <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-950 to-black rounded-lg p-8 overflow-y-auto">
@@ -68,30 +28,8 @@ export const EducationView: React.FC<EducationViewProps> = ({ onClose }) => {
         </p>
       </FadeIn>
 
-      {/* Loading State */}
-      {loading && (
-        <div className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-500 mb-4"></div>
-            <p className="text-gray-400">Loading education data...</p>
-          </div>
-        </div>
-      )}
-
-      {/* Error State */}
-      {error && (
-        <FadeIn className="flex-1 flex items-center justify-center">
-          <div className="text-center">
-            <p className="text-red-400 mb-4">{error}</p>
-            <p className="text-gray-500 text-sm">
-              Place your LinkedIn CSV export (Education.csv) in public/data/
-            </p>
-          </div>
-        </FadeIn>
-      )}
-
       {/* Education Timeline */}
-      {!loading && !error && educationList.length > 0 && (
+      {educationList.length > 0 ? (
         <StaggerContainer className="space-y-6">
           {educationList.map((edu, index) => (
             <StaggerItem
@@ -113,7 +51,7 @@ export const EducationView: React.FC<EducationViewProps> = ({ onClose }) => {
                     </p>
                   </div>
                   <span className="bg-cyan-500/20 text-cyan-400 px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ml-4 group-hover:bg-cyan-500/30 transition-colors">
-                    {edu.endDate || edu.startDate}
+                    {edu.graduationYear}
                   </span>
                 </div>
 
@@ -128,12 +66,9 @@ export const EducationView: React.FC<EducationViewProps> = ({ onClose }) => {
             </StaggerItem>
           ))}
         </StaggerContainer>
-      )}
-
-      {/* Empty State */}
-      {!loading && !error && educationList.length === 0 && (
+      ) : (
         <FadeIn className="flex items-center justify-center flex-1">
-          <p className="text-gray-400 text-lg">No education history found in CSV.</p>
+          <p className="text-gray-400 text-lg">No education history found.</p>
         </FadeIn>
       )}
     </div>
