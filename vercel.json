@@ -6,11 +6,5 @@
   "regions": [
     "iad1"
   ],
-  "public": true,
-  "crons": [
-    {
-      "path": "/api/cron/remind-update",
-      "schedule": "0 0 1 1,7 *"
-    }
-  ]
+  "public": true
 }
