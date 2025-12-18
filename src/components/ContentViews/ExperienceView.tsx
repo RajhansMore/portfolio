@@ -101,9 +101,6 @@ export const ExperienceView: React.FC<ExperienceViewProps> = ({ onClose }) => {
           <p className="text-gray-400 max-w-md">
             I am currently at the beginning of my professional journey, focusing on building a strong foundation in Computer Science and AI. I am actively seeking opportunities to apply my skills in real-world projects.
           </p>
-          <p className="text-gray-500 text-sm mt-4 italic">
-            (Experience data will automatically appear here once you add your LinkedIn export to the project)
-          </p>
         </FadeIn>
       )}
     </div>
