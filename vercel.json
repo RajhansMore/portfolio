@@ -3,11 +3,6 @@
   "devCommand": "npm run dev",
   "installCommand": "npm install",
   "framework": "nextjs",
-  "env": {
-    "GITHUB_TOKEN": "@github_token",
-    "RESEND_API_KEY": "@resend_api_key",
-    "CONTACT_FORM_TO_EMAIL": "@contact_form_to_email"
-  },
   "functions": {
     "api/**": {
       "maxDuration": 30,
