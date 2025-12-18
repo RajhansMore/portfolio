@@ -235,24 +235,7 @@ export const portfolioConfig = {
   // ============================================
   // EXPERIENCE
   // ============================================
-  experience: [
-    {
-      title: 'Full Stack Developer Intern',
-      company: 'Tech Solutions Inc.',
-      location: 'Remote',
-      startDate: '2023-06',
-      endDate: '2023-08',
-      description: 'Developed and maintained web applications using React and Node.js. Optimized database queries and improved frontend performance by 20%.',
-    },
-    {
-      title: 'AI/ML Research Assistant',
-      company: 'Symbiosis Institute of Technology',
-      location: 'Pune, India',
-      startDate: '2022-09',
-      endDate: '2023-05',
-      description: 'Assisted in research on Neural Networks and Computer Vision. Implemented CNN models for image classification tasks.',
-    },
-  ] as ExperienceItem[],
+  experience: [] as ExperienceItem[],
 
   // ============================================
   // EDUCATION

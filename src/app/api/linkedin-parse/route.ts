@@ -113,10 +113,17 @@ async function parseLinkedInCSV(): Promise<LinkedInData> {
     }
 
     if (filesFound === 0) {
-      throw new Error('ENOENT: No LinkedIn CSV files found');
+      // Return empty data gracefully if no files exist
+      return {
+        experiences: [],
+        education: [],
+        parsedAt: new Date().toISOString(),
+        fileAge: -1,
+        isStale: false,
+      };
     }
 
-    const isStale = false; // Default to false for now
+    const isStale = false;
 
     return {
       experiences: experiences.filter((e) => e.title && e.company),

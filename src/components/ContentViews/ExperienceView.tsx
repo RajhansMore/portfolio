@@ -1,20 +1,44 @@
-/**
- * EXPERIENCE CONTENT VIEW
- * Work history from LinkedIn with timeline layout
- */
-
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FadeIn, StaggerContainer, StaggerItem } from '@/components/UI/Animations';
-import { portfolioConfig } from '@/config/portfolio.config';
+
+interface Experience {
+  title: string;
+  company: string;
+  startDate: string;
+  endDate: string;
+  description: string;
+  location?: string;
+}
 
 interface ExperienceViewProps {
   onClose?: () => void;
 }
 
 export const ExperienceView: React.FC<ExperienceViewProps> = ({ onClose }) => {
-  const experiences = portfolioConfig.experience || [];
+  const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchExperience = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/linkedin-parse');
+        const data = await response.json();
+
+        if (data.success && data.data?.experiences) {
+          setExperiences(data.data.experiences);
+        }
+      } catch (err) {
+        // Silently fail and show empty state
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchExperience();
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-950 to-black rounded-lg p-8 overflow-y-auto">
@@ -24,8 +48,18 @@ export const ExperienceView: React.FC<ExperienceViewProps> = ({ onClose }) => {
         <p className="text-gray-400">Professional work history</p>
       </FadeIn>
 
+      {/* Loading State */}
+      {loading && (
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
+            <p className="text-gray-400">Loading experience data...</p>
+          </div>
+        </div>
+      )}
+
       {/* Timeline */}
-      {experiences.length > 0 ? (
+      {!loading && experiences.length > 0 ? (
         <StaggerContainer className="space-y-8">
           {experiences.map((exp, index) => (
             <StaggerItem key={index} className="relative pl-8 pb-8">
@@ -58,14 +92,17 @@ export const ExperienceView: React.FC<ExperienceViewProps> = ({ onClose }) => {
             </StaggerItem>
           ))}
         </StaggerContainer>
-      ) : (
+      ) : !loading && (
         <FadeIn className="flex-1 flex flex-col items-center justify-center text-center p-8">
           <div className="w-16 h-16 bg-blue-500/10 rounded-full flex items-center justify-center mb-4">
             <span className="text-3xl">🚀</span>
           </div>
-          <h3 className="text-xl font-bold text-white mb-2">Fresh Graduate / Early Career</h3>
+          <h3 className="text-xl font-bold text-white mb-2">Newly Graduate / Early Career</h3>
           <p className="text-gray-400 max-w-md">
-            Currently building my professional journey. Open to internships and full-time opportunities where I can apply my skills and grow.
+            I am currently at the beginning of my professional journey, focusing on building a strong foundation in Computer Science and AI. I am actively seeking opportunities to apply my skills in real-world projects.
+          </p>
+          <p className="text-gray-500 text-sm mt-4 italic">
+            (Experience data will automatically appear here once you add your LinkedIn export to the project)
           </p>
         </FadeIn>
       )}
