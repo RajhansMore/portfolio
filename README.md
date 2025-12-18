@@ -13,7 +13,7 @@ A high-end, interactive portfolio website featuring a reactive neural network ba
 
 ---
 
-## 🛠️ How to Update Your Data
+## 🛠️ How to Update the Data
 
 Updating your portfolio is designed to be simple. Most configurations are centralized in `src/config/portfolio.config.ts`.
 
