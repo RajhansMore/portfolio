@@ -40,7 +40,7 @@ All other details (About Me, Skills list, Certifications, Interests) are located
 `src/config/portfolio.config.ts`
 
 ### 5. Periodic Reminders
-The website is configured to send you an email on the 1st of every month to remind you to update your LinkedIn data.
+The website is configured to send you an email every 6 months (January 1st and July 1st) to remind you to update your LinkedIn data.
 - This uses **Vercel Cron Jobs**.
 - You must add a `CRON_SECRET` to your Vercel environment variables to secure this endpoint. You can generate any random string for this.
 
