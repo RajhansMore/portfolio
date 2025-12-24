@@ -62,7 +62,8 @@ export const portfolioConfig = {
     email: 'rajhansmore045@gmail.com',
     phone: '+91 8669988338',
     profileImage: 'https://avatars.githubusercontent.com/u/132777364?v=4',
-    aboutMe: "I am a dedicated professional who prioritizes profound comprehension over mere execution, finding purpose in the intricate 'why' and 'how' of every endeavor. Where others might observe the surface, I delve into the nuances that define excellence. As an explorer of both global cultures and complex problem spaces, I maintain an unwavering commitment to lifelong learning. My mission is to cultivate environments where synergy and innovation flourish, driven by the conviction that true success is a collective achievement—one where personal growth is measured by the elevation of the entire team.",
+    title: 'Full Stack Developer & AI/ML Engineer',
+    aboutMe: "I am a dedicated professional who prioritizes profound comprehension over mere execution. Where others might observe the surface, I delve into the nuances that define excellence. **I fell in love with coding when I built my first automated data pipeline**, seeing how logic could transform raw chaos into actionable insights. Beyond tech, I'm an avid **trekker and reader**, finding that the discipline of the trail and the perspective of a book both fuel my approach to complex problem-solving. My mission is to cultivate environments where synergy and innovation flourish.",
   },
 
   // ============================================
@@ -77,7 +78,6 @@ export const portfolioConfig = {
   // ============================================
   // RESUME / CV
   // ============================================
-  // TIP: You can also set this in .env.local as NEXT_PUBLIC_RESUME_LINK
   resume: {
     googleDriveLink: process.env.NEXT_PUBLIC_RESUME_LINK || 'https://drive.google.com/file/d/14yjJ3cn0wFU1ULzuFhbOOOo7bBlYDL0A/view?usp=drive_link',
     fileName: 'Rajhans_More_Resume.pdf',
@@ -88,71 +88,35 @@ export const portfolioConfig = {
   // ============================================
   skills: [
     // Programming & Frameworks
-    { name: 'Python', category: 'Programming & Frameworks' },
-    { name: 'Java', category: 'Programming & Frameworks' },
-    { name: 'JavaScript', category: 'Programming & Frameworks' },
-    { name: 'Flask', category: 'Programming & Frameworks' },
-    { name: 'Django', category: 'Programming & Frameworks' },
-    { name: 'Spring Boot', category: 'Programming & Frameworks' },
-    { name: 'Express.js', category: 'Programming & Frameworks' },
-    { name: 'Next.js', category: 'Programming & Frameworks' },
+    { name: 'Python', category: 'Programming & Frameworks', proficiency: 95 },
+    { name: 'Java', category: 'Programming & Frameworks', proficiency: 85 },
+    { name: 'JavaScript', category: 'Programming & Frameworks', proficiency: 90 },
+    { name: 'TypeScript', category: 'Programming & Frameworks', proficiency: 88, isHighlight: true },
+    { name: 'Flask', category: 'Programming & Frameworks', proficiency: 80 },
+    { name: 'Django', category: 'Programming & Frameworks', proficiency: 75 },
+    { name: 'Spring Boot', category: 'Programming & Frameworks', proficiency: 70 },
+    { name: 'Express.js', category: 'Programming & Frameworks', proficiency: 82 },
+    { name: 'Next.js', category: 'Programming & Frameworks', proficiency: 90, isHighlight: true },
 
     // Machine Learning & AI
-    { name: 'TensorFlow', category: 'Machine Learning & AI' },
-    { name: 'Keras', category: 'Machine Learning & AI' },
-    { name: 'LightGBM', category: 'Machine Learning & AI' },
-    { name: 'OpenCV', category: 'Machine Learning & AI' },
-    { name: 'GANs', category: 'Machine Learning & AI' },
-    { name: 'Convolutional Neural Networks (CNN)', category: 'Machine Learning & AI' },
-    { name: 'Recurrent Neural Networks (RNN)', category: 'Machine Learning & AI' },
-    { name: 'Transformers', category: 'Machine Learning & AI' },
-    { name: 'Support Vector Machines (SVM)', category: 'Machine Learning & AI' },
-    { name: 'Random Forest', category: 'Machine Learning & AI' },
-    { name: 'Naive Bayes', category: 'Machine Learning & AI' },
-    { name: 'Logistic Regression', category: 'Machine Learning & AI' },
-    { name: 'K-Nearest Neighbors (KNN)', category: 'Machine Learning & AI' },
-    { name: 'Gradient Boosting Machines (GBM)', category: 'Machine Learning & AI' },
-    { name: 'Natural Language Processing (NLP)', category: 'Machine Learning & AI' },
-    { name: 'Machine Translation', category: 'Machine Learning & AI' },
-    { name: 'Computer Vision', category: 'Machine Learning & AI' },
-    { name: 'VGG16', category: 'Machine Learning & AI' },
-    { name: 'Sklearn', category: 'Machine Learning & AI' },
-    { name: 'DenseNet', category: 'Machine Learning & AI' },
-    { name: 'RestNet', category: 'Machine Learning & AI' },
-    { name: 'Long short-term memory (LSTM)', category: 'Machine Learning & AI' },
-    { name: 'ARIMA', category: 'Machine Learning & AI' },
-    { name: 'Generative AI', category: 'Machine Learning & AI' },
-
-    // Model Deployment & APIs
-    { name: 'FastAPI', category: 'Model Deployment & APIs' },
-    { name: 'Streamlit', category: 'Model Deployment & APIs' },
-    { name: 'Docker', category: 'Model Deployment & APIs' },
-
-    // Visualization & Frontend
-    { name: 'HTML', category: 'Visualization & Frontend' },
-    { name: 'CSS', category: 'Visualization & Frontend' },
-    { name: 'jinja2', category: 'Visualization & Frontend' },
-    { name: 'Python Gui', category: 'Visualization & Frontend' },
-
-    // Cloud Computing & MLOps
-    { name: 'AWS', category: 'Cloud Computing & MLOps' },
-    { name: 'IBM Watson', category: 'Cloud Computing & MLOps' },
-    { name: 'Vercel', category: 'Cloud Computing & MLOps' },
+    { name: 'TensorFlow', category: 'Machine Learning & AI', proficiency: 85 },
+    { name: 'PyTorch', category: 'Machine Learning & AI', proficiency: 80 },
+    { name: 'OpenCV', category: 'Machine Learning & AI', proficiency: 88 },
+    { name: 'Generative AI', category: 'Machine Learning & AI', proficiency: 82, isHighlight: true },
+    { name: 'Transformers', category: 'Machine Learning & AI', proficiency: 78 },
+    { name: 'NLP', category: 'Machine Learning & AI', proficiency: 85 },
 
     // Data Engineering
-    { name: 'MongoDB', category: 'Data Engineering' },
-    { name: 'PostgreSQL', category: 'Data Engineering' },
-    { name: 'MySQL', category: 'Data Engineering' },
-    { name: 'Pandas', category: 'Data Engineering' },
-    { name: 'NumPy', category: 'Data Engineering' },
-    { name: 'Matplotlib', category: 'Data Engineering' },
-    { name: 'Excel', category: 'Data Engineering' },
+    { name: 'PostgreSQL', category: 'Data Engineering', proficiency: 85 },
+    { name: 'MongoDB', category: 'Data Engineering', proficiency: 82 },
+    { name: 'Pandas', category: 'Data Engineering', proficiency: 95 },
+    { name: 'NumPy', category: 'Data Engineering', proficiency: 92 },
 
-    // Soft Skills & Collaboration
-    { name: 'Problem-Solving', category: 'Soft Skills & Collaboration' },
-    { name: 'Project Management', category: 'Soft Skills & Collaboration' },
-    { name: 'Presentation Skills', category: 'Soft Skills & Collaboration' },
-  ] as SkillItem[],
+    // Cloud & DevOps
+    { name: 'AWS', category: 'Cloud Computing & MLOps', proficiency: 75 },
+    { name: 'Docker', category: 'Cloud Computing & MLOps', proficiency: 80 },
+    { name: 'Vercel', category: 'Cloud Computing & MLOps', proficiency: 90 },
+  ] as (SkillItem & { proficiency?: number, isHighlight?: boolean })[],
 
   // ============================================
   // CERTIFICATIONS
@@ -179,7 +143,7 @@ export const portfolioConfig = {
     {
       title: 'Emotune- Research Publication',
       date: '2025',
-      description: 'Researchpaper for the project submitted to MethodsX,2025. Status:Currently under review',
+      description: 'Research paper for the project submitted to MethodsX, 2025. Status: Currently under review.',
     },
     {
       title: 'NGO Volunteering',
@@ -189,12 +153,7 @@ export const portfolioConfig = {
     {
       title: 'Sports & Endurance Achievements',
       date: '2022',
-      description: 'Winner of multiple Badminton medals and finisher in multiple city marathons, showcasing competitive edge and a passion for physical challenges.',
-    },
-    {
-      title: 'Events Executive/EventVolunteer',
-      date: '2022',
-      description: 'SymbiTech and Reverb, College fests of Symbiosis Institute of Technology, Pune.',
+      description: 'Winner of multiple Badminton medals and finisher in multiple city marathons.',
     },
   ] as ExtracurricularItem[],
 
@@ -204,11 +163,11 @@ export const portfolioConfig = {
   interests: [
     {
       name: 'Reading',
-      description: 'An avid reader who finds solace and inspiration in books. From gripping fiction to insightful non-fiction, reading fuels my imagination and broadens my perspective on the world.',
+      description: 'An avid reader who finds solace and inspiration in books, from technical non-fiction to gripping narratives.',
     },
     {
       name: 'Trekking & Hiking',
-      description: 'Scaling peaks and traversing rugged trails is my way of disconnecting to reconnect. The physical challenge and the serenity of nature provide a perfect balance to my tech-driven life.',
+      description: 'Scaling peaks is my way of disconnecting to reconnect. The physical challenge provides a perfect balance to tech life.',
     },
     {
       name: 'Outdoor Sports',
@@ -224,7 +183,7 @@ export const portfolioConfig = {
     },
     {
       name: 'Tech Exploration',
-      description: 'Beyond my core stack, I love tinkering with emerging technologies like IoT and AR/VR, constantly pushing the boundaries of what\'s possible with code.',
+      description: 'Beyond my core stack, I love tinkering with emerging technologies like IoT and AR/VR.',
     },
     {
       name: 'Creative Writing',
@@ -276,14 +235,11 @@ export const portfolioConfig = {
   },
 
   // ============================================
-  // THEME & COLORS
+  // THEME & COLORS (System Overhauled to Dark/Light)
   // ============================================
   theme: {
-    primaryColor: '#39FF14',
-    secondaryColor: '#121212',
-    accentColor: '#00FFFF',
-    textPrimary: '#F0F0F0',
-    textSecondary: '#8F8F8F',
+    defaultMode: 'dark',
+    accent: '#3b82f6', // Neural Blue
   },
 };
 

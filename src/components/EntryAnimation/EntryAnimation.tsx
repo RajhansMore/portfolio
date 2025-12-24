@@ -12,32 +12,14 @@ export const EntryAnimation: React.FC<EntryAnimationProps> = ({ onComplete }) =>
   const [stage, setStage] = useState<'name' | 'about' | 'complete'>('name');
   const [canAdvance, setCanAdvance] = useState(false);
 
-  // Stage 1: Show name for 3 seconds
+  // No artificial wait time needed anymore, but we keep a tiny delay for safety
   useEffect(() => {
-    if (stage === 'name') {
-      const timer = setTimeout(() => {
-        setCanAdvance(true);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [stage]);
-
-  // Stage 2: Show about for 3 seconds
-  useEffect(() => {
-    if (stage === 'about') {
-      const timer = setTimeout(() => {
-        setCanAdvance(true);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
+    setCanAdvance(true);
   }, [stage]);
 
   const handleAdvance = () => {
-    if (!canAdvance) return;
-
     if (stage === 'name') {
       setStage('about');
-      setCanAdvance(false);
     } else if (stage === 'about') {
       setStage('complete');
       onComplete();
@@ -51,9 +33,7 @@ export const EntryAnimation: React.FC<EntryAnimationProps> = ({ onComplete }) =>
     };
 
     const handleTouchSwipe = (e: TouchEvent) => {
-      if (canAdvance) {
-        handleAdvance();
-      }
+      handleAdvance();
     };
 
     window.addEventListener('keydown', handleKeyPress);
@@ -65,7 +45,7 @@ export const EntryAnimation: React.FC<EntryAnimationProps> = ({ onComplete }) =>
       window.removeEventListener('touchstart', handleTouchSwipe);
       window.removeEventListener('click', handleAdvance);
     };
-  }, [canAdvance, stage]);
+  }, [stage]);
 
   return (
     <div className="fixed inset-0 z-50 bg-gradient-to-br from-slate-950 to-black flex items-center justify-center">
@@ -109,9 +89,17 @@ export const EntryAnimation: React.FC<EntryAnimationProps> = ({ onComplete }) =>
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4 md:mb-6 tracking-tight">
               {portfolioConfig.personal?.fullName}
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed text-justify font-light">
-              {portfolioConfig.personal?.aboutMe}
-            </p>
+            <div className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed text-center font-light">
+              {portfolioConfig.personal?.aboutMe.split('**').map((part: string, i: number) =>
+                i % 2 === 1 ? (
+                  <span key={i} className="font-bold text-blue-400">
+                    {part}
+                  </span>
+                ) : (
+                  part
+                )
+              )}
+            </div>
 
             <motion.div
               initial={{ opacity: 0 }}

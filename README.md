@@ -1,18 +1,18 @@
-# 🧠 Mind Palace - Interactive Neural Network Portfolio
+# 🧪 Innovation Lab - Advanced Interactive Portfolio
 
-A high-end, interactive portfolio website featuring a reactive neural network background, dynamic theme switching, and automatic data synchronization.
+An elite, high-performance portfolio ecosystem (The "Innovation Lab") featuring a reactive neural network nexus, tech-first project visualization, and automated professional identity synchronization.
 
-## 🚀 Features
+## 🚀 Key Systems
 
-- **Reactive Neural Network**: A D3.js powered background that responds to your navigation and screen size.
-- **Full Responsiveness**: Optimized for a seamless experience across mobile, tablet, and desktop devices.
-- **Dynamic Themes**: Switch between Neural Blue, Matrix Green, and Cyber Purple.
-- **Auto GitHub Sync**: Automatically displays projects tagged with `portfolio-showcase`.
-- **LinkedIn Integration**: Parses your LinkedIn data for Experience and Education views.
-- **Smart Experience Display**: Gracefully handles "Newly Graduate" states with a professional message when no experience data is present.
-- **Premium UI**: Smooth animations using Framer Motion and a custom cyber-themed scrollbar.
-- **Contact System**: Integrated contact form powered by Resend.
-- **SEO Optimized**: Built with modern SEO best practices for better visibility.
+- **Neural Network Nexus**: A D3.js powered interactive background that dynamically adapts to your navigation and viewport.
+- **Innovation Lab (Projects)**: Real-time GitHub synchronization for repositories tagged with `portfolio-showcase`.
+- **Tech-First Visuals**: Automated project tiles that generate unique generative art and tech-stack badges based on the actual repository languages.
+- **Dynamic Identity**: Adaptive UI that toggles between a full-name branding and a minimalist "R" icon during deep content exploration.
+- **Full Responsiveness**: Precision-engineered for a seamless experience from high-res monitors to mobile viewports.
+- **Professional Timeline**: Automated parsing of personal dossiers (LinkedIn CSV) for Experience and Education views.
+- **Contact Laboratory**: Advanced contact terminal with real-time validation, powered by Resend.
+- **Premium Aesthetics**: Smooth micro-animations using Framer Motion and a custom cyber-themed scrollbar.
+- **SEO Optimized**: Built with modern technical SEO standards.
 
 ---
 

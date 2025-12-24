@@ -16,7 +16,7 @@ import { InterestsView } from '@/components/ContentViews/InterestsView';
 import { EducationView } from '@/components/ContentViews/EducationView';
 import { AboutView } from '@/components/ContentViews/AboutView';
 import { Background3D } from '@/components/UI/Background3D';
-import { ThemeSwitcher } from '@/components/UI/ThemeSwitcher';
+import { Navbar, ViewType as NavViewType } from '@/components/UI/Navbar';
 
 type ViewType =
   | 'entry'
@@ -135,6 +135,7 @@ export default function Home() {
         </AnimatePresence>
       </div>
 
+
       {currentView !== 'entry' && (
         <>
           <PersistentUI
@@ -142,7 +143,10 @@ export default function Home() {
             onBackClick={currentView !== 'network' ? handleViewClose : undefined}
             onAboutClick={handleAboutClick}
           />
-          <ThemeSwitcher />
+          <Navbar
+            currentView={currentView}
+            onViewChange={(view: NavViewType) => setCurrentView(view as ViewType)}
+          />
         </>
       )}
 

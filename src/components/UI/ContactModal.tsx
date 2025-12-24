@@ -8,6 +8,7 @@
 import React, { useState } from 'react';
 import { portfolioConfig } from '@/config/portfolio.config';
 import { FadeIn } from '@/components/UI/Animations';
+import { motion } from 'framer-motion';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -92,7 +93,6 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
     setSubmitStatus('idle');
 
     try {
-      // Combine names for API
       const payload = {
         name: `${formData.firstName} ${formData.lastName}`.trim(),
         email: formData.email,
@@ -113,10 +113,6 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
         setSubmitStatus('success');
         setFormData({ firstName: '', lastName: '', email: '', phone: '', subject: '', message: '' });
         setErrors({});
-        setTimeout(() => {
-          onClose();
-          setSubmitStatus('idle');
-        }, 2000);
       } else {
         setSubmitStatus('error');
       }
@@ -130,171 +126,169 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4 md:p-8 overflow-y-auto">
-      <FadeIn className="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start my-auto">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-md p-4 md:p-8 overflow-y-auto custom-scrollbar">
+      <FadeIn className="w-full max-w-5xl bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl overflow-hidden relative">
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-6 right-6 text-gray-500 hover:text-white transition-all hover:rotate-90 z-20"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
 
-        {/* Left Column: Info & Text */}
-        <div className="space-y-6 md:space-y-8 pt-4 md:pt-8">
-          <div>
-            <h3 className="text-xs md:text-sm font-medium text-gray-400 uppercase tracking-wider mb-2 md:mb-3">Contact Us</h3>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-4 md:mb-6">
-              Want to work together? <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-400">
-                Let's make something great
-              </span>
-            </h2>
+        <div className="grid grid-cols-1 lg:grid-cols-5 h-full">
+          {/* Left Column: Brand & Info */}
+          <div className="lg:col-span-2 p-8 md:p-12 bg-gradient-to-br from-blue-600 to-indigo-700 text-white relative overflow-hidden">
+            <div className="relative z-10 space-y-8">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-black mb-4">Let's Connect</h2>
+                <p className="text-blue-100/80 leading-relaxed font-medium">
+                  Have a vision for a groundbreaking product? Or just want to discuss the latest in AI? I'm all ears.
+                </p>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                    <svg className="w-5 h-5 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-widest text-blue-200/60 font-black">Email</p>
+                    <p className="font-bold truncate">{portfolioConfig.personal.email}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                    <svg className="w-5 h-5 text-blue-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-widest text-blue-200/60 font-black">Phone</p>
+                    <p className="font-bold">{portfolioConfig.personal.phone}</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="pt-8 border-t border-white/10">
+                <p className="text-sm font-medium italic opacity-80">
+                  "The best way to predict the future is to build it."
+                </p>
+              </div>
+            </div>
+
+            {/* Decorative background shapes */}
+            <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-white/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-10 right-10 w-24 h-24 bg-blue-400/10 rounded-full blur-xl animate-pulse pointer-events-none" />
           </div>
 
-          <div className="space-y-3 md:space-y-4">
-            {portfolioConfig.personal?.email && (
-              <a
-                href={`mailto:${portfolioConfig.personal?.email}`}
-                className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-slate-900/50 border border-slate-700 rounded-lg hover:border-blue-500 transition-all group"
+          {/* Right Column: Form or Success */}
+          <div className="lg:col-span-3 p-8 md:p-12 bg-slate-900 flex flex-col justify-center">
+            {submitStatus === 'success' ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="text-center space-y-6"
               >
-                <div className="w-8 h-8 md:w-10 md:h-10 bg-slate-800 rounded flex items-center justify-center text-blue-400 group-hover:text-white transition-colors">
-                  <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <div className="w-20 h-20 bg-green-500/10 rounded-full flex items-center justify-center mx-auto border-2 border-green-500/50">
+                  <svg className="w-10 h-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
-                <span className="text-sm md:text-base text-gray-300 group-hover:text-white font-medium truncate">{portfolioConfig.personal?.email}</span>
-              </a>
-            )}
-
-            {portfolioConfig.personal?.phone && (
-              <a
-                href={`tel:${portfolioConfig.personal?.phone}`}
-                className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-slate-900/50 border border-slate-700 rounded-lg hover:border-green-500 transition-all group"
-              >
-                <div className="w-8 h-8 md:w-10 md:h-10 bg-slate-800 rounded flex items-center justify-center text-green-400 group-hover:text-white transition-colors">
-                  <svg className="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
+                <h3 className="text-2xl font-bold text-white">Message Transmitted!</h3>
+                <p className="text-gray-400 max-w-sm mx-auto">
+                  Thank you for reaching out. I've received your data and will be in touch within 24 hours.
+                </p>
+                <button
+                  onClick={onClose}
+                  className="px-8 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition-all"
+                >
+                  Close Laboratory
+                </button>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-[10px] uppercase tracking-widest text-gray-500 font-black ml-1">First Name</label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      placeholder="e.g. John"
+                      className={`w-full px-4 py-3 bg-slate-950 border ${errors.firstName ? 'border-red-500/50 bg-red-500/5' : 'border-slate-800 focus:border-blue-500'} rounded-xl text-white placeholder-gray-700 focus:outline-none transition-all`}
+                    />
+                    {errors.firstName && <p className="text-red-400 text-[10px] font-bold mt-1 ml-1 uppercase">{errors.firstName}</p>}
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] uppercase tracking-widest text-gray-500 font-black ml-1">Last Name</label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      placeholder="e.g. Doe"
+                      className={`w-full px-4 py-3 bg-slate-950 border ${errors.lastName ? 'border-red-500/50 bg-red-500/5' : 'border-slate-800 focus:border-blue-500'} rounded-xl text-white placeholder-gray-700 focus:outline-none transition-all`}
+                    />
+                    {errors.lastName && <p className="text-red-400 text-[10px] font-bold mt-1 ml-1 uppercase">{errors.lastName}</p>}
+                  </div>
                 </div>
-                <span className="text-sm md:text-base text-gray-300 group-hover:text-white font-medium">{portfolioConfig.personal?.phone}</span>
-              </a>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] uppercase tracking-widest text-gray-500 font-black ml-1">Work Email</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="john@example.com"
+                    className={`w-full px-4 py-3 bg-slate-950 border ${errors.email ? 'border-red-500/50 bg-red-500/5' : 'border-slate-800 focus:border-blue-500'} rounded-xl text-white placeholder-gray-700 focus:outline-none transition-all`}
+                  />
+                  {errors.email && <p className="text-red-400 text-[10px] font-bold mt-1 ml-1 uppercase">{errors.email}</p>}
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-[10px] uppercase tracking-widest text-gray-500 font-black ml-1">Message</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Describe your project or query..."
+                    rows={4}
+                    className={`w-full px-4 py-3 bg-slate-950 border ${errors.message ? 'border-red-500/50 bg-red-500/5' : 'border-slate-800 focus:border-blue-500'} rounded-xl text-white placeholder-gray-700 focus:outline-none transition-all resize-none`}
+                  />
+                  {errors.message && <p className="text-red-400 text-[10px] font-bold mt-1 ml-1 uppercase">{errors.message}</p>}
+                </div>
+
+                {submitStatus === 'error' && (
+                  <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-xs font-bold text-center">
+                    Oops! Protocol failed. Please re-check your data.
+                  </div>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full py-4 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 text-white font-black uppercase tracking-widest rounded-xl transition-all duration-300 shadow-xl shadow-blue-500/20 active:scale-95 flex items-center justify-center gap-3"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      Transmitting...
+                    </>
+                  ) : (
+                    'Initiate Contact'
+                  )}
+                </button>
+              </form>
             )}
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 pt-4 md:pt-8">
-            <div>
-              <h4 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-2">Need Help?</h4>
-              <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
-                Whether it's a query, feedback, or a cool idea — I'm just a message away.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg md:text-xl font-bold text-white mb-1 md:mb-2">Collaboration Section</h4>
-              <p className="text-gray-400 text-xs md:text-sm leading-relaxed">
-                Have an exciting project in mind? I'd love to team up and bring ideas to life. Let's build something amazing together!
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Column: Form */}
-        <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl relative">
-          {/* Close Button */}
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors p-2 z-10"
-          >
-            <svg className="w-5 h-5 md:w-6 md:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-
-          <div className="mb-6 md:mb-8">
-            <h3 className="text-xl md:text-2xl font-bold text-white mb-1 md:mb-2">Get in Touch</h3>
-            <p className="text-sm md:text-base text-gray-400">You can reach us anytime</p>
-          </div>
-
-          <form onSubmit={handleSubmit} noValidate className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  placeholder="Your First Name"
-                  className={`w-full px-4 py-3 bg-slate-950/50 border ${errors.firstName ? 'border-red-500' : 'border-slate-700'} rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors`}
-                />
-                {errors.firstName && <p className="text-red-400 text-xs mt-1">{errors.firstName}</p>}
-              </div>
-              <div>
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  placeholder="Your Last Name"
-                  className={`w-full px-4 py-3 bg-slate-950/50 border ${errors.lastName ? 'border-red-500' : 'border-slate-700'} rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors`}
-                />
-                {errors.lastName && <p className="text-red-400 text-xs mt-1">{errors.lastName}</p>}
-              </div>
-            </div>
-
-            <input
-              type="text"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Your Email Address"
-              className={`w-full px-4 py-3 bg-slate-950/50 border ${errors.email ? 'border-red-500' : 'border-slate-700'} rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors`}
-            />
-            {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
-
-            <input
-              type="text"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Your Contact Number (10 digits)"
-              className={`w-full px-4 py-3 bg-slate-950/50 border ${errors.phone ? 'border-red-500' : 'border-slate-700'} rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors`}
-            />
-            {errors.phone && <p className="text-red-400 text-xs mt-1">{errors.phone}</p>}
-
-            <input
-              type="text"
-              name="subject"
-              value={formData.subject}
-              onChange={handleChange}
-              placeholder="How can I help you? (or &quot;Subject&quot;)"
-              className={`w-full px-4 py-3 bg-slate-950/50 border ${errors.subject ? 'border-red-500' : 'border-slate-700'} rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors`}
-            />
-            {errors.subject && <p className="text-red-400 text-xs mt-1">{errors.subject}</p>}
-
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Let's talk! Share your message here."
-              rows={4}
-              className={`w-full px-4 py-3 bg-slate-950/50 border ${errors.message ? 'border-red-500' : 'border-slate-700'} rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-blue-500 transition-colors resize-none`}
-            />
-            {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
-
-            {/* Status Messages */}
-            {submitStatus === 'success' && (
-              <div className="p-3 bg-green-500/20 border border-green-500 rounded text-green-400 text-sm">
-                ✓ Message sent successfully!
-              </div>
-            )}
-
-            {submitStatus === 'error' && (
-              <div className="p-3 bg-red-500/20 border border-red-500 rounded text-red-400 text-sm">
-                ✗ Failed to send message. Please try again.
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30"
-            >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-            </button>
-          </form>
         </div>
       </FadeIn>
     </div>

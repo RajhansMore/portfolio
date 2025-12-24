@@ -31,7 +31,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onClose }) => {
 
     return (
         <div
-            className="w-full h-full flex flex-col items-center justify-center bg-black/90 backdrop-blur-xl rounded-lg p-4 md:p-8 cursor-pointer overflow-hidden relative"
+            className="w-full h-full flex flex-col items-center justify-start bg-black/90 backdrop-blur-xl rounded-lg p-4 md:p-8 cursor-pointer overflow-y-auto custom-scrollbar relative"
             onClick={onClose}
             onMouseMove={handleMouseMove}
         >
@@ -47,7 +47,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onClose }) => {
             />
 
             <motion.div
-                className="max-w-3xl text-center relative z-10"
+                className="max-w-3xl text-center relative z-10 mt-12 md:mt-20"
                 style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
             >
                 <FadeIn direction="down" className="mb-4 md:mb-6 flex flex-col items-center">
@@ -55,10 +55,10 @@ export const AboutView: React.FC<AboutViewProps> = ({ onClose }) => {
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
-                        className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full border-2 border-blue-500/50 p-1 mb-4 md:mb-6 relative group flex items-center justify-center bg-slate-900/50 backdrop-blur-sm"
+                        className="w-24 h-24 sm:w-32 sm:h-32 md:w-32 md:h-32 rounded-full border-2 border-blue-500/50 p-1 mb-4 md:mb-6 relative group flex items-center justify-center bg-slate-900/50 backdrop-blur-sm"
                     >
                         <div className="absolute inset-0 rounded-full bg-blue-500/10 blur-lg group-hover:bg-blue-500/30 transition-colors duration-500" />
-                        <span className="text-5xl sm:text-6xl md:text-7xl font-bold text-white relative z-10 tracking-tighter group-hover:text-blue-400 transition-colors duration-500">
+                        <span className="text-5xl sm:text-6xl md:text-6xl font-bold text-white relative z-10 tracking-tighter group-hover:text-blue-400 transition-colors duration-500">
                             {portfolioConfig.personal.fullName.charAt(0)}
                         </span>
                     </motion.div>
@@ -68,24 +68,26 @@ export const AboutView: React.FC<AboutViewProps> = ({ onClose }) => {
                     <div className="h-1 w-16 md:w-20 bg-blue-500/50 mx-auto rounded-full" />
                 </FadeIn>
 
-                <div className="text-base sm:text-xl md:text-2xl text-gray-300 leading-relaxed font-light">
-                    <Typewriter
-                        text={portfolioConfig.personal.aboutMe}
-                        speed={0.02}
-                        delay={0.5}
-                        className="justify-center"
-                    />
+                <div className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed font-light text-justify max-w-2xl mx-auto">
+                    {portfolioConfig.personal.aboutMe.split('**').map((part: string, i: number) =>
+                        i % 2 === 1 ? (
+                            <span key={i} className="font-bold text-blue-400">
+                                {part}
+                            </span>
+                        ) : (
+                            part
+                        )
+                    )}
                 </div>
 
-                <FadeIn delay={4} className="mt-12">
-                    <motion.div
-                        animate={{ opacity: [0.4, 1, 0.4] }}
-                        transition={{ duration: 2, repeat: Infinity }}
-                        className="text-sm text-gray-500 flex flex-col items-center gap-2"
-                    >
-                        <span className="uppercase tracking-[0.2em] text-[10px]">Tap anywhere to continue</span>
-                        <div className="w-px h-8 bg-gradient-to-b from-gray-500 to-transparent" />
-                    </motion.div>
+                <FadeIn delay={1} className="mt-8 pb-32 flex flex-col items-center gap-4">
+                    <div className="flex flex-wrap justify-center gap-4">
+                        {portfolioConfig.interests.map((interest: any, i: number) => (
+                            <div key={i} className="px-3 py-1 bg-slate-900/50 border border-slate-700 rounded-full text-xs text-gray-400">
+                                {interest.name}
+                            </div>
+                        ))}
+                    </div>
                 </FadeIn>
             </motion.div>
         </div>
