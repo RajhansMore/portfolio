@@ -105,7 +105,7 @@ function generateEmailHTML(data: ContactFormData): string {
           
           <div class="footer">
             <p class="meta">
-              Submitted via Mind Palace Portfolio<br>
+              Submitted via Rajhans More Portfolio<br>
               ${new Date().toLocaleString()}
             </p>
             <p>
@@ -244,7 +244,7 @@ export async function POST(request: NextRequest) {
     // Send confirmation email to user
     try {
       await resend.emails.send({
-        from: 'Mind Palace <onboarding@resend.dev>',
+        from: 'Rajhans More <onboarding@resend.dev>',
         to: contactData.email,
         subject: 'Thank you for reaching out!',
         html: `

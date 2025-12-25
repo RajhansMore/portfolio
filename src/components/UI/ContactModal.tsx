@@ -60,19 +60,6 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
       newErrors.email = 'Please enter a valid email address';
     }
 
-    // Phone validation (10 digits, numeric only)
-    const phoneRegex = /^\d{10}$/;
-    if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
-    } else if (!phoneRegex.test(formData.phone)) {
-      newErrors.phone = 'Phone number must be exactly 10 digits';
-    }
-
-    // Subject validation
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
-    }
-
     // Message validation
     if (!formData.message.trim()) {
       newErrors.message = 'Message cannot be empty';
@@ -158,7 +145,9 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                   </div>
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-blue-200/60 font-black">Email</p>
-                    <p className="font-bold truncate">{portfolioConfig.personal.email}</p>
+                    <a href={`mailto:${portfolioConfig.personal.email}`} className="font-bold truncate hover:text-blue-200 transition-colors">
+                      {portfolioConfig.personal.email}
+                    </a>
                   </div>
                 </div>
 
@@ -202,7 +191,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                 </div>
                 <h3 className="text-2xl font-bold text-white">Message Transmitted!</h3>
                 <p className="text-gray-400 max-w-sm mx-auto">
-                  Thank you for reaching out. I've received your data and will be in touch within 24 hours.
+                  Thank you, I'll get back to you soon
                 </p>
                 <button
                   onClick={onClose}
@@ -283,7 +272,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
                       Transmitting...
                     </>
                   ) : (
-                    'Initiate Contact'
+                    'Send Message'
                   )}
                 </button>
               </form>
