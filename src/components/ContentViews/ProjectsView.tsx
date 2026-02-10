@@ -20,6 +20,7 @@ interface ProjectData {
   technologies: string[];
   createdAt: string;
   updatedAt: string;
+  priority: number;
 }
 
 interface ProjectsViewProps {
@@ -40,10 +41,8 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onClose }) => {
         const data = await response.json();
 
         if (data.success) {
-          const sortedProjects = (data.data || []).sort((a: ProjectData, b: ProjectData) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-          );
-          setProjects(sortedProjects);
+          // Projects are already sorted by the API (priority first, then creation date)
+          setProjects(data.data || []);
         } else {
           setError('Failed to fetch projects');
         }

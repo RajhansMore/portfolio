@@ -134,6 +134,12 @@ export const portfolioConfig = {
       verificationLink: 'https://drive.google.com/file/d/17OW13a4gD-gvu1-DyXwdzadTlN0HTk48/view',
       issuedDate: '2025',
     },
+    {
+      title: 'Angular: The Complete Guide',
+      issuer: 'Udemy',
+      verificationLink: 'https://udemy-certificate.s3.amazonaws.com/image/UC-dde71145-bede-4f65-b451-1fe79477e33d.jpg',
+      issuedDate: '2025',
+    },
   ] as CertificationItem[],
 
   // ============================================
@@ -142,7 +148,7 @@ export const portfolioConfig = {
   extracurriculars: [
     {
       title: 'Emotune- Research Publication',
-      date: '2025',
+      date: '2026',
       description: 'Research paper for the project submitted to MethodsX, 2025. Status: Currently under review.',
     },
     {
@@ -152,7 +158,7 @@ export const portfolioConfig = {
     },
     {
       title: 'Sports & Endurance Achievements',
-      date: '2022',
+      date: '2024',
       description: 'Winner of multiple Badminton medals and finisher in multiple city marathons.',
     },
   ] as ExtracurricularItem[],

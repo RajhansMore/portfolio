@@ -36,9 +36,16 @@ You have two ways to update your resume link:
 
 ### 3. Sync New Projects (GitHub)
 1. Go to your GitHub repository settings.
-2. Add the topic `portfolio-showcase`.
-3. The portfolio will automatically fetch it (cached for 1 hour).
-4. To force an immediate refresh, visit `/api/github-sync?refresh=true`.
+2. Add one of the following topics to set the project priority:
+   - `portfolio-showcase-1` - **Top Priority** (displayed first)
+   - `portfolio-showcase-2` - **Second Priority** (displayed after priority 1)
+   - `portfolio-showcase-3` - **Least Priority** (displayed last)
+   - `portfolio-showcase` - Defaults to priority 3 if no specific priority is set
+3. Projects are automatically sorted by:
+   - **Priority first**: 1 → 2 → 3 (top to bottom)
+   - **Creation date second**: Newest projects appear first within each priority group
+4. The portfolio will automatically fetch projects (cached for 1 hour).
+5. To force an immediate refresh, visit `/api/github-sync?refresh=true`.
 
 ### 4. Personal Details & Skills
 All other details (About Me, Skills list, Certifications, Interests) are located in:

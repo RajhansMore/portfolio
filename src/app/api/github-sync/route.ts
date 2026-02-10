@@ -19,6 +19,7 @@ interface SyncedProject {
   technologies: string[];
   createdAt: string;
   updatedAt: string;
+  priority: number; // 1 = highest, 2 = medium, 3 = lowest
 }
 
 // In-memory cache (simple, resets on deployment - suitable for portfolio)
@@ -92,26 +93,63 @@ async function fetchGitHubProjects(): Promise<SyncedProject[]> {
       return [];
     }
 
-    // Filter repositories with 'portfolio-showcase' topic
+    // Filter repositories with 'portfolio-showcase' topic and extract priority
     const portfolioTopic = portfolioConfig.github.portfolioTopic.toLowerCase();
+
     const syncedProjects: SyncedProject[] = json.data.viewer.repositories.nodes
       .filter((repo: any) => {
         const topics = repo.repositoryTopics?.nodes?.map((t: any) =>
           t.topic.name.toLowerCase()
         ) || [];
-        return topics.includes(portfolioTopic);
+
+        // Check for base topic or any priority variant
+        const hasPortfolioTag = topics.some((topic: string) =>
+          topic === portfolioTopic || topic.startsWith(`${portfolioTopic}-`)
+        );
+
+        return hasPortfolioTag;
       })
-      .map((repo: any) => ({
-        id: repo.name,
-        name: repo.name,
-        description: repo.description || 'No description provided',
-        url: repo.url,
-        imageUrl: repo.openGraphImageUrl,
-        technologies:
-          repo.languages?.nodes?.map((lang: any) => lang.name) || [],
-        createdAt: repo.createdAt,
-        updatedAt: repo.updatedAt,
-      }));
+      .map((repo: any) => {
+        const topics = repo.repositoryTopics?.nodes?.map((t: any) =>
+          t.topic.name.toLowerCase()
+        ) || [];
+
+        // Extract priority from tags like 'portfolio-showcase-1', 'portfolio-showcase-2', etc.
+        let priority = 3; // Default to lowest priority
+        const priorityRegex = /portfolio-showcase-(\d+)/;
+
+        for (const topic of topics) {
+          const match = topic.match(priorityRegex);
+          if (match && match[1]) {
+            const extractedPriority = parseInt(match[1], 10);
+            // Only accept valid priorities (1, 2, or 3)
+            if (extractedPriority >= 1 && extractedPriority <= 3) {
+              priority = extractedPriority;
+              break;
+            }
+          }
+        }
+
+        return {
+          id: repo.name,
+          name: repo.name,
+          description: repo.description || 'No description provided',
+          url: repo.url,
+          imageUrl: repo.openGraphImageUrl,
+          technologies:
+            repo.languages?.nodes?.map((lang: any) => lang.name) || [],
+          createdAt: repo.createdAt,
+          updatedAt: repo.updatedAt,
+          priority,
+        };
+      })
+      // Sort by priority first (ascending: 1, 2, 3), then by creation date (descending: newest first)
+      .sort((a: SyncedProject, b: SyncedProject) => {
+        if (a.priority !== b.priority) {
+          return a.priority - b.priority; // Lower priority number = higher priority
+        }
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(); // Newer first
+      });
 
     return syncedProjects;
   } catch (error) {
