@@ -57,16 +57,6 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onClose }) => {
   }, []);
 
   // Helper to parse description for problem/solution
-  const parseDescription = (desc: string) => {
-    if (!desc) return { main: 'No description provided', problem: '', challenge: '' };
-    const parts = desc.split('---').map(p => p.trim());
-    return {
-      main: parts[0] || 'Technical Implementation',
-      problem: parts[1] || 'Optimizing complex workflows through targeted technical solutions.',
-      challenge: parts[2] || 'Maintaining performance while ensuring architectural integrity.'
-    };
-  };
-
   return (
     <div className="w-full h-full flex flex-col bg-gradient-to-br from-slate-950 to-black rounded-lg p-4 md:p-8 overflow-y-auto custom-scrollbar">
       {/* Header */}
@@ -96,7 +86,6 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onClose }) => {
       ) : (
         <StaggerContainer className="grid grid-cols-1 xl:grid-cols-2 gap-8 md:gap-12 pb-32">
           {projects.map((project) => {
-            const { main, problem, challenge } = parseDescription(project.description);
             const tileSvg = generateProjectTileSVG(project.name, project.technologies);
 
             return (
@@ -145,23 +134,12 @@ export const ProjectsView: React.FC<ProjectsViewProps> = ({ onClose }) => {
                   {/* Content Side */}
                   <div className="p-6 md:p-8 flex flex-col justify-between flex-1 bg-gradient-to-br from-transparent to-slate-950/20">
                     <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-white mb-2 group-hover:text-blue-400 transition-colors uppercase tracking-tight">
+                      <h3 className="text-xl md:text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors uppercase tracking-tight">
                         {project.name.replace(/-/g, ' ')}
                       </h3>
-                      <p className="text-gray-400 text-xs md:text-sm mb-6 leading-relaxed italic border-l-2 border-blue-500/30 pl-4">
-                        {main}
+                      <p className="text-gray-300 text-sm md:text-base leading-relaxed">
+                        {project.description || 'No description provided'}
                       </p>
-
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="text-[10px] uppercase tracking-[0.2em] text-blue-400 font-black mb-1 opacity-80">Problem Analysis</h4>
-                          <p className="text-xs text-gray-300 leading-relaxed font-light line-clamp-2 md:line-clamp-none">{problem}</p>
-                        </div>
-                        <div>
-                          <h4 className="text-[10px] uppercase tracking-[0.2em] text-indigo-400 font-black mb-1 opacity-80">Tech Execution</h4>
-                          <p className="text-xs text-gray-300 leading-relaxed font-light line-clamp-2 md:line-clamp-none">{challenge}</p>
-                        </div>
-                      </div>
                     </div>
 
                     {/* Stats Footer */}
